@@ -19,5 +19,6 @@ RSpec.describe Hub, type: :model do
   describe 'associations' do
     it { is_expected.to belong_to(:country) }
     it { is_expected.to have_one(:location) }
+    it { is_expected.to have_many(:functions) }
   end
 end

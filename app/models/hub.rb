@@ -9,4 +9,5 @@ class Hub < ApplicationRecord
 
   belongs_to :country
   has_one :location
+  has_many :functions
 end
