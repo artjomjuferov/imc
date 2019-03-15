@@ -1,4 +1,4 @@
 class Country < ApplicationRecord
-  validates :name, uniqueness: true, presence: true
-  validates :code, uniqueness: true, presence: true
+  validates :name, presence: true, uniqueness: true
+  validates :code, presence: true, uniqueness: true
 end
