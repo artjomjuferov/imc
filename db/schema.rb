@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190315195932) do
+ActiveRecord::Schema.define(version: 20190315211711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +22,12 @@ ActiveRecord::Schema.define(version: 20190315195932) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "function_hubs", force: :cascade do |t|
+  create_table "functions", force: :cascade do |t|
     t.bigint "hub_id"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["hub_id"], name: "index_function_hubs_on_hub_id"
+    t.index ["hub_id"], name: "index_functions_on_hub_id"
   end
 
   create_table "hubs", force: :cascade do |t|
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20190315195932) do
     t.index ["hub_id"], name: "index_locations_on_hub_id"
   end
 
-  add_foreign_key "function_hubs", "hubs"
+  add_foreign_key "functions", "hubs"
   add_foreign_key "hubs", "countries"
   add_foreign_key "locations", "hubs"
 end
