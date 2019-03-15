@@ -1,0 +1,2 @@
+- When a user is searching by the address, should we allow to set filters and find nearest considering his preferences?
+- Do we need to store hubs without coordinates, which attributes a hub must have to be loaded into the db?
