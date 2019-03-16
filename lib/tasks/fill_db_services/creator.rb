@@ -1,3 +1,5 @@
+require './lib/tasks/fill_db_services/hub_creator'
+
 module FillDbServices
   class Creator
     def initialize(row)

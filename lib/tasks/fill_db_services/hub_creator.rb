@@ -1,3 +1,6 @@
+require './lib/tasks/fill_db_services/functions_creator'
+require './lib/tasks/fill_db_services/location_creator'
+
 module FillDbServices
   class HubCreator
     def initialize(row)

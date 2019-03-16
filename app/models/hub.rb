@@ -4,7 +4,6 @@ class Hub < ApplicationRecord
   validates :code, presence: true, uniqueness: {scope: :country_id}
   validates :name, presence: true, uniqueness: true
   validates :name_wo_diacritics, presence: true, uniqueness: true
-  validates :subdiv, presence: true
   validates :status, presence: true, inclusion: { in: STATUSES }
   validates :uploaded_date, presence: true
 

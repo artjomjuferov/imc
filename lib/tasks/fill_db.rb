@@ -11,6 +11,8 @@ class FillDb
   end
 
   def handle_csv(path)
-    CSV.foreach(path) { |row| FillDbServices::Creator.new(row).perform! }
+    CSV.foreach(path, encoding: 'ISO-8859-1') do |row|
+      FillDbServices::Creator.new(row).perform!
+    end
   end
 end
