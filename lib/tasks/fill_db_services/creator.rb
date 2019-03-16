@@ -4,10 +4,14 @@ module FillDbServices
   class Creator
     def initialize(row)
       @row = row
+      @log = Logger.new('fill_db.log')
     end
 
     def perform!
       country? ? create_country : create_hub
+    rescue ActiveRecord::RecordInvalid => e
+      @log.error(e.to_s)
+      @log.error(@row)
     end
 
     private

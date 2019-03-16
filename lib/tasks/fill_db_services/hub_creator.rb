@@ -43,7 +43,7 @@ module FillDbServices
     end
 
     def uploaded_date
-      Date.strptime(@row[8], "%y%m")
+      Date.strptime(@row[8], "%y%m") if @row[8]
     end
   end
 end
