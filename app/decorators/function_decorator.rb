@@ -1,4 +1,6 @@
 class FunctionDecorator < Draper::Decorator
+  delegate_all
+
   def explanation
     case object.code
     when '1'

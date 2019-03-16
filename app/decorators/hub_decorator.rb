@@ -1,4 +1,6 @@
 class HubDecorator < Draper::Decorator
+  delegate_all
+
   def unlocode
     "#{object.country.code} #{object.code}"
   end

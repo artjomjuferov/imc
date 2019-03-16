@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe Hub, type: :model do
   describe 'validations' do
+    it { is_expected.to validate_inclusion_of(:change_code).in_array(%w[X # ¦ + = !]) }
+
     it { is_expected.to validate_presence_of(:code) }
     it { is_expected.to validate_uniqueness_of(:code).scoped_to(:country_id) }
 
