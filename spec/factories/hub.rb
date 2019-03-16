@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :hub do
     country
+    unlocode { 'DE HAM' }
     code { 'HAM' }
     name { 'Hamburg' }
     name_wo_diacritics { 'Hamburg' }

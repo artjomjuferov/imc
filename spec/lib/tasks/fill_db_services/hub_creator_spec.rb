@@ -18,6 +18,7 @@ RSpec.describe FillDbServices::HubCreator do
       expect(Hub.last).to have_attributes(
         change_code: '+',
         country_id: country.id,
+        unlocode: 'DE HAM',
         code: 'HAM',
         name: 'Hamburg',
         name_wo_diacritics: 'Hamburg',

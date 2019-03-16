@@ -1,10 +1,6 @@
 class HubDecorator < Draper::Decorator
   delegate_all
 
-  def unlocode
-    "#{object.country.code} #{object.code}"
-  end
-
   def change_code_humane
     case object.change_code
     when 'X'

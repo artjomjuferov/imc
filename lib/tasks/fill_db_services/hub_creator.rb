@@ -19,6 +19,7 @@ module FillDbServices
       Hub.create!(
         change_code: @row[0],
         country: country,
+        unlocode: unlocode,
         code: @row[2],
         name: @row[3],
         name_wo_diacritics: @row[4],
@@ -39,11 +40,15 @@ module FillDbServices
     end
 
     def country
-      Country.find_by(code: @row[1])
+      @country ||= Country.find_by(code: @row[1])
     end
 
     def uploaded_date
       Date.strptime(@row[8], "%y%m") if @row[8]
+    end
+
+    def unlocode
+      "#{country.code} #{@row[2]}"
     end
   end
 end

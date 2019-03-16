@@ -26,6 +26,7 @@ RSpec.describe FillDb do
     expect(hub).to have_attributes(
       change_code: '+',
       country_id: country.id,
+      unlocode: 'DE HAM',
       code: 'HAM',
       name: 'Hamburg',
       name_wo_diacritics: 'Hamburg',

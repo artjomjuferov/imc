@@ -1,14 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe HubDecorator, type: :decorator do
-  describe '#unlocode' do
-    subject { hub.decorate.unlocode }
-    let(:country) { build(:country, name: 'Germany', code: 'DE') }
-    let(:hub) { build(:hub, country: country, code: 'HAM') }
-
-    it { is_expected.to eq('DE HAM') }
-  end
-
   describe '#change_code_humane' do
     subject { hub.decorate.change_code_humane }
 
