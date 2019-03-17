@@ -10,10 +10,15 @@ RSpec.describe HubDecorator, type: :decorator do
       let(:change_code) { 'X' }
       it { is_expected.to eq('(X) Marked for deletion in the next issue') }
     end
+
+    context 'with nil change_code' do
+      let(:change_code) { nil }
+      it { is_expected.to be_nil }
+    end
   end
 
-  describe '#satatus_humane' do
-    subject { hub.decorate.satatus_humane }
+  describe '#status_humane' do
+    subject { hub.decorate.status_humane }
 
     let(:hub) { build(:hub, status: status) }
 

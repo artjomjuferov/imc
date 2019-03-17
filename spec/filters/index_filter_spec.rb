@@ -50,7 +50,7 @@ RSpec.describe IndexFilter do
   end
 
   describe 'searching by change_codes' do
-    let!(:hub1) { byebug; create(:hub, change_code: '+', name: 'Hamburg', name_wo_diacritics: 'Hamburg', code: 'HAM') }
+    let!(:hub1) { create(:hub, change_code: '+', name: 'Hamburg', name_wo_diacritics: 'Hamburg', code: 'HAM') }
     let!(:hub2) { create(:hub, change_code: '#', name: 'Riga', name_wo_diacritics: 'Riga', code: 'RIX') }
     let(:params) { {change_codes: change_codes} }
 
