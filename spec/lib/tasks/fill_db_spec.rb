@@ -11,7 +11,7 @@ RSpec.describe FillDb do
     expect(Dir).to receive(:[]).and_return(['path_to_file_1'])
     expect(CSV).to receive(:foreach)
       .and_yield([nil, 'DE', nil, '.GERMANY', nil, nil])
-      .and_yield(['+', 'DE', 'HAM', 'Hamburg', 'Hamburg', 'HH', '12345---', 'AF', '0210', 'QAJ', '2532N 05533E', 'Remark'])
+      .and_yield(['+', 'DE', 'HAM', 'Hamburg', 'Hamburg', 'HH', '12345---', 'AF', '0210', 'QAJ', '2560N 05533E', 'Remark'])
 
     expect { subject }
       .to change(Country, :count).from(0).to(1)
@@ -38,7 +38,7 @@ RSpec.describe FillDb do
     )
 
     # TODO: fix it
-    expect(Location.last).to have_attributes(lat: 0, long: 0, hub_id: hub.id)
+    expect(Location.last).to have_attributes(lat: 26, long: 55.55, hub_id: hub.id)
 
     (1..5).each do |code|
       expect(Function.find_by(code: code)).to have_attributes(hub_id: hub.id)

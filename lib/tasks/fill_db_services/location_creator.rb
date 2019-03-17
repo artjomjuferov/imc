@@ -1,24 +1,14 @@
+require './lib/tasks/fill_db_services/location_creators/dms_to_dd'
+
 module FillDbServices
   class LocationCreator
     def initialize(cell, hub_id)
-      @cell = cell
       @hub_id = hub_id
+      @dd = LocationCreators::DmsToDd.new(cell).convert
     end
 
     def perform!
-      Location.create(hub_id: @hub_id, lat: lat, long: long)
-    end
-
-    private
-
-    # TODO: fix it
-    def lat
-      0
-    end
-
-    # TODO: fix it
-    def long
-      0
+      Location.create(hub_id: @hub_id, lat: @dd[:lat], long: @dd[:long])
     end
   end
 end

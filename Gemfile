@@ -32,6 +32,7 @@ gem 'jbuilder', '~> 2.5'
 gem "slim-rails"
 gem 'draper', github: 'drapergem/draper'
 gem 'will_paginate', '~> 3.1.0'
+gem 'activerecord-postgis-adapter'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
