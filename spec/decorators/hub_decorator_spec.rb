@@ -26,5 +26,10 @@ RSpec.describe HubDecorator, type: :decorator do
       let(:status) { 'AA' }
       it { is_expected.to eq('(AA) Approved by competent national government agency') }
     end
+
+    context 'with nil status' do
+      let(:status) { nil }
+      it { is_expected.to be_nil }
+    end
   end
 end

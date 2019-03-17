@@ -9,6 +9,7 @@ class HubDecorator < Draper::Decorator
 
   def status_humane
     explanation = Hub.status_explanation(object.status)
+    return unless explanation
     "(#{object.status}) #{explanation}"
   end
 end

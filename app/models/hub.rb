@@ -7,7 +7,7 @@ class Hub < ApplicationRecord
   validates :code, presence: true, uniqueness: {scope: :country_id}
   validates :name, presence: true, uniqueness: {scope: :country_id}
   validates :name_wo_diacritics, presence: true, uniqueness: {scope: :country_id}
-  validates :status, presence: true, inclusion: { in: STATUSES }
+  validates :status, allow_nil:true, inclusion: { in: STATUSES }
 
   belongs_to :country
   has_one :location
