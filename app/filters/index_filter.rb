@@ -22,12 +22,15 @@ class IndexFilter
 
   def filter_functions
     return if empty_param?(@params[:functions])
-    @base_rel = @base_rel.joins(:functions).distinct
+    @base_rel = @base_rel.distinct
     if empty_param?(@params[:functions_and])
-      @base_rel = @base_rel.where(functions: {code: @params[:functions]})
+      @base_rel = @base_rel
+        .joins(:functions)
+        .where(functions: {code: @params[:functions]})
     else
       @params[:functions].each do |function_code|
-        @base_rel = @base_rel.where(functions: {code: function_code})
+        select_hub_id = Function.where(code: function_code).select(:hub_id)
+        @base_rel = @base_rel.where(id: select_hub_id)
       end
     end
   end

@@ -8,11 +8,10 @@ class Hub < ApplicationRecord
   validates :name, presence: true, uniqueness: {scope: :country_id}
   validates :name_wo_diacritics, presence: true, uniqueness: {scope: :country_id}
   validates :status, presence: true, inclusion: { in: STATUSES }
-  validates :uploaded_date, presence: true
 
   belongs_to :country
   has_one :location
-  has_many :functions
+  has_many :functions, -> { order(:code) }
 
   def self.change_code_explanation(change_code)
     case change_code

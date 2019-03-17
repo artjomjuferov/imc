@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe IndexFilter do
   subject { described_class.new(params).results }
 
+  let(:country) { create(:country) }
+
   context 'when params is empty' do
     let!(:hub) { create(:hub) }
     let(:params) { {} }
@@ -50,8 +52,8 @@ RSpec.describe IndexFilter do
   end
 
   describe 'searching by change_codes' do
-    let!(:hub1) { create(:hub, change_code: '+', name: 'Hamburg', name_wo_diacritics: 'Hamburg', code: 'HAM') }
-    let!(:hub2) { create(:hub, change_code: '#', name: 'Riga', name_wo_diacritics: 'Riga', code: 'RIX') }
+    let!(:hub1) { create(:hub, change_code: '+', name: 'Hamburg', name_wo_diacritics: 'Hamburg', code: 'HAM', country: country) }
+    let!(:hub2) { create(:hub, change_code: '#', name: 'Riga', name_wo_diacritics: 'Riga', code: 'RIX', country: country) }
     let(:params) { {change_codes: change_codes} }
 
     context 'with empty array' do
@@ -71,9 +73,9 @@ RSpec.describe IndexFilter do
   end
 
   describe 'searching by statuses' do
-    let!(:hub1) { create(:hub, status: 'AA', name: 'Hamburg', name_wo_diacritics: 'Hamburg', code: 'HAM') }
-    let!(:hub2) { create(:hub, status: 'AC', name: 'Riga', name_wo_diacritics: 'Riga', code: 'RIX') }
-    let(:params) { {statuses: change_codes} }
+    let!(:hub1) { create(:hub, status: 'AA', name: 'Hamburg', name_wo_diacritics: 'Hamburg', code: 'HAM', country: country) }
+    let!(:hub2) { create(:hub, status: 'AC', name: 'Riga', name_wo_diacritics: 'Riga', code: 'RIX', country: country) }
+    let(:params) { {statuses: statuses} }
 
     context 'with empty array' do
       let(:statuses) { [] }
@@ -92,10 +94,10 @@ RSpec.describe IndexFilter do
   end
 
   describe 'searching by functions' do
-    let!(:hub1) { create(:hub, name: 'Hamburg', name_wo_diacritics: 'Hamburg', code: 'HAM') }
+    let!(:hub1) { create(:hub, name: 'Hamburg', name_wo_diacritics: 'Hamburg', code: 'HAM', country: country) }
     let!(:function_hub1) { create(:function, hub: hub1, code: '1') }
-    let!(:hub2) { create(:hub, name: 'Riga', name_wo_diacritics: 'Riga', code: 'RIX') }
-    let!(:function_hub2) { create(:function, hub: hub1, code: '2') }
+    let!(:hub2) { create(:hub, name: 'Riga', name_wo_diacritics: 'Riga', code: 'RIX', country: country) }
+    let!(:function_hub2) { create(:function, hub: hub2, code: '2') }
     let(:params) { {functions: functions} }
 
     context 'with empty array' do
@@ -104,18 +106,19 @@ RSpec.describe IndexFilter do
     end
 
     context 'when existsing' do
-      let(:statuses) { %w[1 2] }
+      let(:functions) { %w[1 2] }
       it { is_expected.to contain_exactly(hub1, hub2) }
     end
 
     context 'with non existing' do
-      let(:statuses) { %w[3] }
+      let(:functions) { %w[3] }
       it { is_expected.to be_empty }
     end
 
     context 'when functions_and is passed' do
       let!(:second_function_hub1) { create(:function, hub: hub1, code: '2') }
-      let(:statuses) { %w[1 2] }
+      let(:functions) { %w[1 2] }
+      let(:params) { {functions: functions, functions_and: true} }
       it { is_expected.to contain_exactly(hub1) }
     end
   end
