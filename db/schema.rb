@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190316222217) do
+ActiveRecord::Schema.define(version: 20190317180025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
 
   create_table "countries", force: :cascade do |t|
     t.string "name"
@@ -44,7 +45,12 @@ ActiveRecord::Schema.define(version: 20190316222217) do
     t.datetime "updated_at", null: false
     t.string "code"
     t.string "unlocode"
+    t.index "name_wo_diacritics gin_trgm_ops", name: "hubs_name_wo_diacritics_idx", using: :gin
+    t.index ["change_code"], name: "index_hubs_on_change_code"
     t.index ["country_id"], name: "index_hubs_on_country_id"
+    t.index ["name_wo_diacritics"], name: "index_hubs_on_name_wo_diacritics"
+    t.index ["status"], name: "index_hubs_on_status"
+    t.index ["unlocode"], name: "index_hubs_on_unlocode"
   end
 
   create_table "locations", force: :cascade do |t|

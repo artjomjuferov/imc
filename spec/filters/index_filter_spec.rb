@@ -21,7 +21,7 @@ RSpec.describe IndexFilter do
     end
 
     context 'with existing' do
-      let(:name) { 'Hamburg' }
+      let(:name) { 'hAmb' }
       it { is_expected.to contain_exactly(hub) }
     end
 
@@ -41,7 +41,7 @@ RSpec.describe IndexFilter do
     end
 
     context 'with existing' do
-      let(:unlocode) { 'DE HAM' }
+      let(:unlocode) { 'de HAM' }
       it { is_expected.to contain_exactly(hub) }
     end
 

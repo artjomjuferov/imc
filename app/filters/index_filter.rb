@@ -6,8 +6,8 @@ class IndexFilter
 
   def results
     return @base_rel if empty_param?(@params)
-    filter_text_field(:name_wo_diacritics)
-    filter_text_field(:unlocode)
+    filter_unlocode
+    filter_name
     filter_check_boxes(:change_code)
     filter_check_boxes(:status)
     filter_functions
@@ -43,15 +43,21 @@ class IndexFilter
     end
   end
 
+  def filter_unlocode
+    return if empty_param?(@params[:unlocode])
+    @base_rel = @base_rel.where(unlocode: @params[:unlocode].upcase)
+  end
+
+  def filter_name
+    return if empty_param?(@params[:name_wo_diacritics])
+    name = Hub.arel_table[:name_wo_diacritics]
+    @base_rel = @base_rel.where(name.matches("%#{@params[:name_wo_diacritics]}%"))
+  end
+
   def filter_check_boxes(key)
     param_value = @params[key.to_s.pluralize.to_sym]
     return if empty_param?(param_value)
     @base_rel = @base_rel.where("#{key}": param_value)
-  end
-
-  def filter_text_field(key)
-    return if empty_param?(@params[key])
-    @base_rel = @base_rel.where("#{key}": @params[key])
   end
 
   def empty_param?(param_value)
