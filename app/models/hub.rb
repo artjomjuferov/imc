@@ -4,9 +4,9 @@ class Hub < ApplicationRecord
 
   validates :change_code, allow_nil:true, inclusion: {in: CHANGE_CODES}
   validates :unlocode, presence:true
-  validates :code, presence: true, uniqueness: {scope: :country_id}
-  validates :name, presence: true, uniqueness: {scope: :country_id}
-  validates :name_wo_diacritics, presence: true, uniqueness: {scope: :country_id}
+  validates :code, presence: true
+  validates :name, presence: true
+  validates :name_wo_diacritics, presence: true
   validates :status, allow_nil:true, inclusion: { in: STATUSES }
 
   belongs_to :country
