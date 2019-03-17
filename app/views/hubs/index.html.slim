@@ -1,0 +1,36 @@
+= form_for(form_for_object_from_param(:filter), method: :get, url: hubs_path) do |f|
+  p
+    = f.label :change_codes
+    - Hub::CHANGE_CODES.each do |change_code|
+      = f.check_box :change_codes, { multiple: true }, change_code, nil
+      abbr title=Hub.change_code_explanation(change_code)
+        = change_code
+  p
+    = f.label :unlocode
+    = f.text_field :unlocode
+  p
+    = f.label :name_wo_diacritics, 'Name (without diacritics)' 
+    = f.text_field :name_wo_diacritics
+  p
+    = f.label :statuses
+    - Hub::STATUSES.each do |status|
+      = f.check_box :statuses, { multiple: true }, status, nil
+      abbr title=Hub.status_explanation(status)
+        = status
+  p
+    = f.label :functions
+    - Function::CODES.each do |code|
+      = f.check_box :functions, { multiple: true }, code, nil
+      abbr title=Function.explanation(code)
+        = code
+  p
+    = f.label :functions_and, title: 'Show hubs with all selected functions'
+    = f.check_box :functions_and
+
+  = f.submit 'Filter'
+
+
+- if @hubs.empty?
+  p No hubs are found
+- else
+  = render 'hubs_table'

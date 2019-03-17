@@ -1,0 +1,19 @@
+table border="1"
+  tr
+    th Change code
+    th Country
+    th UNLOCODE
+    th Name
+    th Name without diacritics
+    th Subdivision
+    th Function
+    th Status
+    th Date
+    th IATA
+    th Coordinates
+    th Remarks
+    th Show on map
+  - @hubs.decorate.each do |hub|
+    = render hub
+
+= will_paginate @hubs

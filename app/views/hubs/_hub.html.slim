@@ -1,0 +1,17 @@
+tr
+  td = hub.change_code_humane
+  td = hub.country.name
+  td = hub.unlocode
+  td = hub.name
+  td = hub.name_wo_diacritics
+  td = hub.subdiv
+  td
+    ul
+      - hub.functions.each do |function|
+        li = function.decorate.humane
+  td = hub.status_humane
+  td = hub.uploaded_date&.strftime("%Y %b")
+  td = hub.iata
+  td = hub.location&.lat
+  td = hub.remark
+  td = hub.location&.decorate&.map_link
