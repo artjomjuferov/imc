@@ -1,5 +1,4 @@
 class HubsController < ApplicationController
-
   def index
     @hubs = IndexFilter
               .new(index_filter_params)
@@ -10,7 +9,10 @@ class HubsController < ApplicationController
   end
 
   def closest
+    @hubs = [Hub.first]
   end
+
+  private
 
   def index_filter_params
     params.fetch(:filter, {})

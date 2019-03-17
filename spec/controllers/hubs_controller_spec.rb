@@ -23,4 +23,15 @@ RSpec.describe HubsController do
       end
     end
   end
+
+  describe "GET closest" do
+    subject { get :closets  }
+    let!(:hub) { create(:hub) }
+
+    it 'finds the closest one' do
+      subject
+      expect(response.status).to eq(200)
+      expect(assigns(:hubs)).to contain_exactly(hub)
+    end
+  end
 end
