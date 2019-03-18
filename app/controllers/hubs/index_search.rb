@@ -1,4 +1,4 @@
-class IndexFilter
+class Hubs::IndexSearch
   def initialize(params)
     @params = params
     @base_rel = Hub.all

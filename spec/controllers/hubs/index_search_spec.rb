@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe IndexFilter do
+RSpec.describe Hubs::IndexSearch do
   subject { described_class.new(params).results }
 
   let(:country) { create(:country) }

@@ -1,6 +1,6 @@
 class HubsController < ApplicationController
   def index
-    @hubs = IndexFilter
+    @hubs = Hubs::IndexSearch
               .new(index_filter_params)
               .results
               .paginate(:page => params[:page])
