@@ -1,8 +1,10 @@
 # README
 
 Please keep in mind a few things:
+
 - I have started to import hubs and after 30 minutes I interupted the proccess. 
-  It started from the first file.
+  It started from the first file. So for closest hub testing use something from 
+  the top of the first csv file.
 - Autocomplete work properly if autosuggestions appear and then you need
   to select one of them and then click out of the input box.
 - I left `gmaps-auto-complete` because I wanted to use it for autocomplete,
