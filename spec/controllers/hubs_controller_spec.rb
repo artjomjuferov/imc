@@ -25,13 +25,28 @@ RSpec.describe HubsController do
   end
 
   describe "GET closest" do
-    subject { get :closets  }
-    let!(:hub) { create(:hub) }
-
-    it 'finds the closest one' do
-      subject
-      expect(response.status).to eq(200)
-      expect(assigns(:hubs)).to contain_exactly(hub)
+    subject { get :closest, params: {address: address} }
+    let!(:closest_hub) { create(:hub, name: 'Closest') }
+    let!(:closest_location) { create(:location, longlat: 'POINT(1.111 2.222)', hub: closest_hub) }
+    let!(:farthest_hub) { create(:hub, name: 'Farthest', country: Country.first) }
+    let!(:farthest_location) { create(:location, longlat: 'POINT(1.112 2.223)', hub: farthest_hub) }
+   
+    context 'with correct address' do
+      let(:address) { {name: 'Incorrect', lat: '', long: ''} }
+      it 'finds the closest one' do
+        subject
+        expect(response.status).to eq(200)
+        expect(assigns(:hubs)).to be_empty
+      end
+    end
+    
+    context 'with correct address' do
+      let(:address) { {name: 'Correct one', lat: '2.22', long: '1.11'} }
+      it 'finds the closest one' do
+        subject
+        expect(response.status).to eq(200)
+        expect(assigns(:hubs)).to contain_exactly(closest_hub)
+      end
     end
   end
 
@@ -41,11 +56,11 @@ RSpec.describe HubsController do
     it do
       expect(Geocoder).to receive(:search)
         .with('Entered address')
-        .and_return([double(data: {'address' => 'Street name, Country, etc..'})])
+        .and_return([double(address:'address', coordinates: [1.1, 2.2])])
 
       subject
       expect(response.status).to eq(200)
-      expect(response.json).to eq(['Street name, Country, etc..'])
+      expect(JSON.parse(response.body)).to eq(['value' => 'address', 'data' => [1.1, 2.2]])
     end
   end
 end

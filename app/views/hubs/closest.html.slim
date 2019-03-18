@@ -9,4 +9,7 @@ h2 = link_to 'Search hubs', hubs_path
 
   = submit_tag 'Find'
 
-= render 'hubs_table'
+- if @hubs.empty?
+  p No correct address is provided
+- else
+  = render 'hubs_table'
