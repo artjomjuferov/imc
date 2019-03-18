@@ -22,11 +22,23 @@ module FillDbServices
         match = @dms.match('.+\D (.+)(\D)')
         numbers = match[1]
         direction = match[2]
-        (numbers[0..2].to_f + numbers[3..5].to_f/60) * sign(direction)
+        if numbers[0] == '0'
+          leading_zero_long(numbers)
+        else
+          non_leading_zero_long(numbers)
+        end * sign(direction)
+      end
+      
+      def leading_zero_long(numbers)
+        (numbers[1..2].to_f + numbers[3..4].to_f/60)
+      end
+      
+      def non_leading_zero_long(numbers)
+        (numbers[0..1].to_f + numbers[2..3].to_f/60 + numbers[4].to_f/3600)
       end
       
       def sign(direction)
-        %w[S W].include?(direction)  ? -1 : 1
+        %w[S W].include?(direction) ? -1 : 1
       end
     end
   end
