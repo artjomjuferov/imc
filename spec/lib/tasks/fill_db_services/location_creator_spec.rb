@@ -6,7 +6,7 @@ RSpec.describe FillDbServices::LocationCreator do
   describe '#perform' do
     subject { described_class.new(cell, hub_id).perform! }
 
-    let(:cell) { '' }
+    let(:cell) { '20N 10W' }
     let(:hub_id) { create(:hub).id }
 
     specify do

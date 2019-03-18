@@ -12,6 +12,6 @@ tr
   td = hub.status_humane
   td = hub.uploaded_date&.strftime("%Y %b")
   td = hub.iata
-  td = hub.location&.lat
+  td = hub.location&.decorate&.humane
   td = hub.remark
   td = hub.location&.decorate&.map_link

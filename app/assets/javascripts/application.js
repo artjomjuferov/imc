@@ -25,24 +25,31 @@ $(document).ajaxComplete(function(event, xhr, settings){
 
 $(document).ready(function(){
     $('#address_name').change(function() {
-        var self = this;
-        if (window.lastAutocompleteAdresses !== undefined){
-            var currentAddress = window.lastAutocompleteAdresses.find(function(address) {
-              return address.value == $(self).val();
-            });
-            if (currentAddress !== undefined){
-                $('#address_lat').val(currentAddress.data[0]);
-                $('#address_long').val(currentAddress.data[1]);
-            } else {
-                cleanLatLong();
-            } 
-        } else {
-            cleanLatLong();
-        }
-        
+        setLatLong($(this).val());
     });    
+    
+    $('#new_address').submit(function() {
+        console.log($('#address_name').val());
+        setLatLong($('#address_name').val());
+    });
 })
 
+
+function setLatLong(address_name){
+    if (window.lastAutocompleteAdresses !== undefined){
+        var currentAddress = window.lastAutocompleteAdresses.find(function(address) {
+          return address.value == address_name;
+        });
+        if (currentAddress !== undefined){
+            $('#address_lat').val(currentAddress.data[0]);
+            $('#address_long').val(currentAddress.data[1]);
+        } else {
+            cleanLatLong();
+        } 
+    } else {
+        cleanLatLong();
+    }
+}
 
 function cleanLatLong() {
     $('#address_lat').val('');
