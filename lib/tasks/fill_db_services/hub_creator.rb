@@ -17,14 +17,14 @@ module FillDbServices
 
     def create_hub
       Hub.create!(
-        change_code: @row[0],
+        change_code: change_code,
         country: country,
         unlocode: unlocode,
         code: @row[2],
         name: @row[3],
         name_wo_diacritics: @row[4],
         subdiv: @row[5],
-        status: @row[7],
+        status: status,
         uploaded_date: uploaded_date,
         iata: @row[9],
         remark: @row[11],
@@ -49,6 +49,14 @@ module FillDbServices
 
     def unlocode
       "#{country.code} #{@row[2]}"
+    end
+    
+    def change_code
+      @row[0].blank? ? nil : @row[0]
+    end
+    
+    def status
+      @row[7].blank? ? nil : @row[7]
     end
   end
 end

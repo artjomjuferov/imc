@@ -2,12 +2,12 @@ class Hub < ApplicationRecord
   STATUSES = %w[AA AC AF AI AM AQ AS RL RN RQ UR RR QQ XX]
   CHANGE_CODES = %w[X # ¦ + = !]
 
-  validates :change_code, allow_nil:true, inclusion: {in: CHANGE_CODES}
+  validates :change_code, inclusion: {in: CHANGE_CODES}, allow_nil: true
   validates :unlocode, presence:true
   validates :code, presence: true
   validates :name, presence: true
   validates :name_wo_diacritics, presence: true
-  validates :status, allow_nil:true, inclusion: { in: STATUSES }
+  validates :status, inclusion: { in: STATUSES }, allow_nil: true
 
   belongs_to :country
   has_one :location
