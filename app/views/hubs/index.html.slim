@@ -1,4 +1,5 @@
-h2 = link_to 'Find the closest hub by the adress', hubs_closets_url
+h1 Search form
+h4 = link_to 'Go to finding the closest hub', hubs_closets_url
 
 = form_for(form_for_object_from_param(:filter), method: :get, url: hubs_path) do |f|
   p
@@ -41,5 +42,5 @@ h2 = link_to 'Find the closest hub by the adress', hubs_closets_url
 - if @hubs.empty?
   p No hubs are found
 - else
-  = render 'hubs_table'
   = will_paginate @hubs
+  = render 'hubs_table'
