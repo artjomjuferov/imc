@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 20190317211051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
   enable_extension "pg_trgm"
 
   create_table "countries", force: :cascade do |t|
@@ -55,12 +56,12 @@ ActiveRecord::Schema.define(version: 20190317211051) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.float "lat"
-    t.float "long"
     t.bigint "hub_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.geography "longlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.index ["hub_id"], name: "index_locations_on_hub_id"
+    t.index ["longlat"], name: "index_locations_on_longlat", using: :gist
   end
 
   add_foreign_key "functions", "hubs"
