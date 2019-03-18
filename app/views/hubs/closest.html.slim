@@ -1,1 +1,8 @@
+h2 = link_to 'Search hubs', hubs_path
+
+= form_tag hubs_closets_path, method: :get do
+  = autocomplete_field_tag :address, params[:address], hubs_autocomplete_address_path, size: 75
+
+  = submit_tag 'Find'
+
 = render 'hubs_table'

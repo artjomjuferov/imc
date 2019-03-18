@@ -33,6 +33,12 @@ gem "slim-rails"
 gem 'draper', github: 'drapergem/draper'
 gem 'will_paginate', '~> 3.1.0'
 gem 'activerecord-postgis-adapter'
+gem 'jquery-rails'
+# For sake of css it is there
+gem 'gmaps-autocomplete-rails'
+gem 'geocoder'
+gem 'rails-jquery-autocomplete'
+gem 'jquery-ui-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

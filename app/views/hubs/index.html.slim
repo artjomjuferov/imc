@@ -1,3 +1,5 @@
+h2 = link_to 'Find the closest hub by the adress', hubs_closets_url
+
 = form_for(form_for_object_from_param(:filter), method: :get, url: hubs_path) do |f|
   p
     = f.label :change_codes
@@ -9,7 +11,7 @@
     = f.label :unlocode
     = f.text_field :unlocode
   p
-    = f.label :name_wo_diacritics, 'Name (without diacritics)' 
+    = f.label :name_wo_diacritics, 'Name (without diacritics)'
     = f.text_field :name_wo_diacritics
   p
     = f.label :statuses

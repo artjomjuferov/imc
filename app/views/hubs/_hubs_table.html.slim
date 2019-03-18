@@ -16,4 +16,5 @@ table border="1"
   - @hubs.decorate.each do |hub|
     = render hub
 
-= will_paginate @hubs
+- unless @hubs.empty?
+  = will_paginate @hubs

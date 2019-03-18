@@ -9,7 +9,20 @@ class HubsController < ApplicationController
   end
 
   def closest
-    @hubs = [Hub.first]
+    pp Geocoder.search(params[:address])
+    @hubs = Hub.limit(1)
+  end
+
+  def autocomplete_address
+    res =  Geocoder.search(params[:term]).map do |geocoder|
+      address = geocoder.data['address']
+      [
+        address['statation'], address['road'], address['suburb'],
+        address['city_district'], address['city'], address['town'],
+        address['county'], address['state'], address['country']
+      ].compact.join(',')
+    end
+    render json: res
   end
 
   private

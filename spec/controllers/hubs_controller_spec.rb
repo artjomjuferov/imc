@@ -34,4 +34,18 @@ RSpec.describe HubsController do
       expect(assigns(:hubs)).to contain_exactly(hub)
     end
   end
+
+  describe "GET autocomplete_address" do
+    subject { get :autocomplete_address, term: 'Entered address' }
+
+    it do
+      expect(Geocoder).to receive(:search)
+        .with('Entered address')
+        .and_return(['Street name, Country, etc..'])
+
+      subject
+      expect(response.status).to eq(200)
+      expect(response.json).to eq(['Street name, Country, etc..'])
+    end
+  end
 end
