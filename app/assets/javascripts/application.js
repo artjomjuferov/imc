@@ -34,7 +34,6 @@ $(document).ready(function(){
     });
 })
 
-
 function setLatLong(address_name){
     if (window.lastAutocompleteAdresses !== undefined){
         var currentAddress = window.lastAutocompleteAdresses.find(function(address) {

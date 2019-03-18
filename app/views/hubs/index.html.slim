@@ -29,7 +29,13 @@ h2 = link_to 'Find the closest hub by the adress', hubs_closets_url
     = f.label :functions_and, title: 'Show hubs with all selected functions'
     = f.check_box :functions_and
 
-  = f.submit 'Filter'
+  p
+    = f.label :order_by
+    = f.select :order_by, [['name (without diacritics)', 'name'], ['country', 'country']]
+  p
+    = f.label :order_desc
+    = f.check_box :order_desc
+  = f.submit 'Show hubs'
 
 
 - if @hubs.empty?

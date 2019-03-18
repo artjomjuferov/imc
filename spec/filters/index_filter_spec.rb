@@ -122,4 +122,51 @@ RSpec.describe IndexFilter do
       it { is_expected.to contain_exactly(hub1) }
     end
   end
+  
+  describe 'ordering' do
+    let!(:hub1) { create(:hub, name: 'Hamburg', name_wo_diacritics: 'Hamburg', code: 'HAM', country: country) }
+    let!(:hub2) { create(:hub, name: 'Riga', name_wo_diacritics: 'Riga', code: 'RIX', country: country) }
+    let(:params) { {order_by: order_by, order_desc: desc} }
+
+    context 'when by name' do
+      let(:order_by) { 'name' }
+      context 'when asc' do
+        let(:desc) { '' }
+        it { is_expected.to eq([hub1, hub2]) }
+      end
+      
+      context 'when asc' do
+        let(:desc) { '0' }
+        it { is_expected.to eq([hub1, hub2]) }
+      end
+      
+      context 'when desc' do
+        let(:desc) { '1' }
+        it { is_expected.to eq([hub2, hub1]) }
+      end
+    end
+    
+    context 'when by country' do
+      let(:order_by) { 'country' }
+      let(:germany) { create(:country, name: 'Germany', code: 'DE') }
+      let!(:hub1) { create(:hub, name: 'Hamburg', name_wo_diacritics: 'Hamburg', code: 'HAM', country: germany) }
+      let(:latvia) {  create(:country, name: 'Latvia', code: 'LV') }
+      let!(:hub2) { create(:hub, name: 'Riga', name_wo_diacritics: 'Riga', code: 'RIX', country: latvia) }
+    
+      context 'when asc' do
+        let(:desc) { '' }
+        it { is_expected.to eq([hub1, hub2]) }
+      end
+      
+       context 'when asc' do
+        let(:desc) { '0' }
+        it { is_expected.to eq([hub1, hub2]) }
+      end
+      
+      context 'when desc' do
+        let(:desc) { '1' }
+        it { is_expected.to eq([hub2, hub1]) }
+      end
+    end
+  end
 end

@@ -5,25 +5,23 @@ class IndexFilter
   end
 
   def results
-    return @base_rel if empty_param?(@params)
+    return @base_rel if @params.blank?
     filter_unlocode
     filter_name
     filter_check_boxes(:change_code)
     filter_check_boxes(:status)
     filter_functions
+    order
     @base_rel
   end
 
   private
 
-  def empty_params?
-    !@params || @params.empty?
-  end
 
   def filter_functions
-    return if empty_param?(@params[:functions])
+    return if @params[:functions].blank?
     @base_rel = @base_rel.distinct
-    if empty_param?(@params[:functions_and])
+    if false_checkbox?(@params[:functions_and])
       or_functions_filter
     else
       and_function_filter
@@ -44,23 +42,36 @@ class IndexFilter
   end
 
   def filter_unlocode
-    return if empty_param?(@params[:unlocode])
+    return if @params[:unlocode].blank?
     @base_rel = @base_rel.where(unlocode: @params[:unlocode].upcase)
   end
 
   def filter_name
-    return if empty_param?(@params[:name_wo_diacritics])
+    return if @params[:name_wo_diacritics].blank?
     name = Hub.arel_table[:name_wo_diacritics]
     @base_rel = @base_rel.where(name.matches("%#{@params[:name_wo_diacritics]}%"))
   end
 
   def filter_check_boxes(key)
     param_value = @params[key.to_s.pluralize.to_sym]
-    return if empty_param?(param_value)
+    return if param_value.blank?
     @base_rel = @base_rel.where("#{key}": param_value)
   end
-
-  def empty_param?(param_value)
-    !param_value || param_value&.blank?
+  
+  def order
+    if @params[:order_by] == 'country'
+      @base_rel = @base_rel.joins(:country).order("countries.name #{order_asc_desc}")
+    else
+      @base_rel = @base_rel.order("name_wo_diacritics #{order_asc_desc}")
+    end
+  end
+  
+  
+  def order_asc_desc
+    false_checkbox?(@params[:order_desc]) ? 'ASC' : 'DESC'
+  end
+  
+  def false_checkbox?(param_value)
+    param_value.blank? || param_value == '0'
   end
 end
