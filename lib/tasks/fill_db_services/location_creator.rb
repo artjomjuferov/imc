@@ -8,7 +8,7 @@ module FillDbServices
     end
 
     def perform!
-      Location.create(hub_id: @hub_id, lat: @dd[:lat], long: @dd[:long])
+      Location.create(hub_id: @hub_id, longlat: "POINT(#{@dd[:long]} #{@dd[:lat]})")
     end
   end
 end

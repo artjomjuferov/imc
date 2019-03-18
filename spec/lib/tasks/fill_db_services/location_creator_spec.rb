@@ -12,9 +12,12 @@ RSpec.describe FillDbServices::LocationCreator do
     specify do
       expect(FillDbServices::LocationCreators::DmsToDd)
         .to receive_message_chain(:new, :convert)
-        .and_return(lat: 0, long: 0)
+        .and_return(lat: 0, long: 1)
       expect { subject }.to change(Location, :count).from(0).to(1)
-      expect(Location.last).to have_attributes(lat: 0, long: 0, hub_id: hub_id)
+      location = Location.last
+      expect(location.hub_id).to eq(hub_id)
+      expect(location.longlat.lon).to eq(1)
+      expect(location.longlat.lat).to eq(0)
     end
   end
 end

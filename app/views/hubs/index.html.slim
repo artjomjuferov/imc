@@ -36,3 +36,4 @@ h2 = link_to 'Find the closest hub by the adress', hubs_closets_url
   p No hubs are found
 - else
   = render 'hubs_table'
+  = will_paginate @hubs

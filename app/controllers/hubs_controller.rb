@@ -9,8 +9,13 @@ class HubsController < ApplicationController
   end
 
   def closest
-    p address_params
-    @hubs = Hub.limit(1)
+    lat = address_params[:lat].to_f
+    long = address_params[:long].to_f
+    
+    @hubs = Hub
+      .joins(:location)
+      .order("ST_Distance(locations.longlat, ST_MakePoint(#{long}, #{lat}))")
+      .limit(1)
   end
 
   def autocomplete_address

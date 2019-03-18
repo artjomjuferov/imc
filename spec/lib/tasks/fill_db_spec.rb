@@ -37,11 +37,13 @@ RSpec.describe FillDb do
       remark: 'Remark'
     )
 
-    # TODO: fix it
-    expect(Location.last).to have_attributes(lat: 26, long: 55.55, hub_id: hub.id)
+    location = Location.last 
+    expect(location.hub_id).to eq(hub.id)
+    expect(location.longlat.lon).to eq(55.55)
+    expect(location.longlat.lat).to eq(26)
 
     (1..5).each do |code|
-      expect(Function.find_by(code: code)).to have_attributes(hub_id: hub.id)
+      expect(Function.find_by(code: code).hub_id).to eq(hub.id)
     end
   end
 end
