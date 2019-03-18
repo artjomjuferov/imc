@@ -17,3 +17,21 @@
 //= require jquery-ui/widgets/autocomplete
 //= require autocomplete-rails
 //= require_tree .
+
+
+$(document).ajaxComplete(function(event, xhr, settings){
+    window.lastAutocompleteAdresses = JSON.parse(xhr.responseText);
+});
+
+$(document).ready(function(){
+    $('#address_name').change(function() {
+        var self = this;
+        var currentAddress = window.lastAutocompleteAdresses.find(function(address) {
+          return address.value == $(self).val();
+        });
+        if (currentAddress !== undefined){
+            $('#address_lat').val(currentAddress.data[0]);
+            $('#address_long').val(currentAddress.data[1]);
+        }
+    });    
+})

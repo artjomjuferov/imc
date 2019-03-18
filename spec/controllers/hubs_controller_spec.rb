@@ -36,12 +36,12 @@ RSpec.describe HubsController do
   end
 
   describe "GET autocomplete_address" do
-    subject { get :autocomplete_address, term: 'Entered address' }
+    subject { get :autocomplete_address, params: {term: 'Entered address'} }
 
     it do
       expect(Geocoder).to receive(:search)
         .with('Entered address')
-        .and_return(['Street name, Country, etc..'])
+        .and_return([double(data: {'address' => 'Street name, Country, etc..'})])
 
       subject
       expect(response.status).to eq(200)
