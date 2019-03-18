@@ -5,11 +5,40 @@ RSpec.describe FillDbServices::LocationCreators::DmsToDd do
   describe '#perform' do
     subject { described_class.new(dms).convert }
 
-    let(:dms) { '5231N, 01323E' }
+    context 'when long E' do
+      let(:dms) { '5231N 01323E' }
+  
+      specify do
+        expect(subject[:lat]).to be_within(0.1).of(52.516667)
+        expect(subject[:long]).to be_within(0.1).of(13.383333)
+      end
+    end
 
-    specify do
-      expect(subject[:lat]).to be_within(0.1).of(52.516667)
-      expect(subject[:long]).to be_within(0.1).of(13.383333)
+    context 'when long W' do
+      let(:dms) { '5231N 01323W' }
+  
+      specify do
+        expect(subject[:lat]).to be_within(0.1).of(52.516667)
+        expect(subject[:long]).to be_within(0.1).of(-13.383333)
+      end
+    end
+    
+    context 'when lat S' do
+      let(:dms) { '5231S 01323E' }
+  
+      specify do
+        expect(subject[:lat]).to be_within(0.1).of(-52.516667)
+        expect(subject[:long]).to be_within(0.1).of(13.383333)
+      end
+    end
+
+    context 'when long N' do
+      let(:dms) { '5231N 01323W' }
+  
+      specify do
+        expect(subject[:lat]).to be_within(0.1).of(52.516667)
+        expect(subject[:long]).to be_within(0.1).of(-13.383333)
+      end
     end
   end
 end
