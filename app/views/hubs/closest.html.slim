@@ -3,7 +3,7 @@ h4 = link_to 'Go to searching hubs', hubs_path
 
 = form_for(form_for_object_from_param(:address), method: :get, url: hubs_closets_path) do |f|
   
-  = f.autocomplete_field :name, hubs_autocomplete_address_path
+  = f.autocomplete_field :name, hubs_autocomplete_address_path, size: 95
   = f.hidden_field :lat
   = f.hidden_field :long
 

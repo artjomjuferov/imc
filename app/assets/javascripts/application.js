@@ -23,13 +23,12 @@ $(document).ajaxComplete(function(event, xhr, settings){
     window.lastAutocompleteAdresses = JSON.parse(xhr.responseText);
 });
 
-$(document).ready(function(){
+$(document).on('turbolinks:load', function() {
     $('#address_name').change(function() {
         setLatLong($(this).val());
     });    
     
     $('#new_address').submit(function() {
-        console.log($('#address_name').val());
         setLatLong($('#address_name').val());
     });
 })

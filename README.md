@@ -6,7 +6,8 @@ Please keep in mind a few things:
   It started from the first file. So for closest hub testing use something from 
   the top of the first csv file.
 - Autocomplete work properly if autosuggestions appear and then you need
-  to select one of them and then click out of the input box.
+  to select one of them. I did in that way because Geocoder does not want to
+  search by the address it provides(probably because postcode is included).
 - I left `gmaps-auto-complete` because I wanted to use it for autocomplete,
   but it allowed me to make only one request per day. So I left it only because
   it makes autocomplete list readable for free.
