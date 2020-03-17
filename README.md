@@ -1,14 +1,18 @@
-# README
+## Background Information:
+One integral part of our system is the ability to deal with Hubs. A hub can be an Ocean Port, an
+Airport, a Railyard, or even a Truck-Terminal. When you combine two hubs, we call that a
+Route. We then attach Pricings to these routes, but also to single hubs (local charges at ports
+for example). Usually, these pricings are handled in large Excel sheets.
+In order to uniquely identify a hub, when we attach a pricing to it, we use the so called
+“UN/LOCODE”. The UN constantly updates the LOCODES. A complete version of the list can
+be downloaded here: https://www.unece.org/cefact/codesfortrade/codes_index.html.
 
-Please keep in mind a few things:
-
-- I have started to import hubs and interupted the proccess. So for closest hub 
-  testing use something from the top of the first csv file.
-- Autocomplete work properly if autosuggestions appear and then you need
-  to select one of them. I did in that way because Geocoder does not want to
-  search by the address it provides(probably because postcode is included).
-- I left `gmaps-auto-complete` because I wanted to use it for autocomplete,
-  but it allowed me to make only one request per day. So I left it only because
-  it makes autocomplete list readable for free.
-- If link `https://icm-derevjaginti.c9users.io` does not work please ping me, 
-  server could shut down(as it is supposed for development purposes).
+## Task:
+Write a program that:
+- Downloads the CSV data (comes as zip file in 3 parts)
+- Loads the data into a well designed DB
+- Lets a user search through the DB in a web application as well as filtering / sorting it. If
+there are no results, display a nice message. There is explicitly no CSS styling needed!
+- Lets a user enter any address and find the nearest hub to that (the coordinates are
+included in the data, but may need to be converted into a standard lat/lon format)
+- Bonus: Button next to search entries that lets you display the hub on a map
